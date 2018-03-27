@@ -8,10 +8,11 @@ namespace Assets.Scripts.Board.Pieces
         [SerializeField]
         GameObject [] pieces;
 
-        public Piece CreatePiece(SideTypes sideType, PieceTypes pieceType)
+        public Piece CreatePiece(SideTypes sideType, PieceTypes pieceType, int x, int y)
         {
-            GameObject pieceGameObject = Instantiate(pieces[(int)pieceType * (int)sideType], transform);
-            return pieceGameObject.GetComponent<Piece>();
+            Piece piece = Instantiate(pieces[(int)pieceType * (int)sideType], transform).GetComponent<Piece>();
+            piece.SetPosition(x, y);
+            return piece;
         }
     }
 }
