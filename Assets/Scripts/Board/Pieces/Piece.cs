@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public abstract class Piece : MonoBehaviour
 {
     public int CurrentX { set; get; }
     public int CurrentY { set; get; }
-    public bool isWhite;
+
+    [SerializeField]
+    bool isWhite;
+
+    public bool IsWhite
+    {
+        get { return isWhite; }
+    }
 
     public void SetPosition(int x, int y)
     {
@@ -13,8 +19,5 @@ public abstract class Piece : MonoBehaviour
         CurrentY = y;
     }
 
-    public virtual bool[,] PossibleMove()
-    {
-		return new bool[8,8];
-    }
+    public abstract bool[,] PossibleMoves(Piece[,] pieces);
 }
