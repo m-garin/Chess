@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IBoardManager
 {
     Piece[,] Pieces { get; }
-
-    void SelectPiece(Vector2Int position);
+    Piece SelectedPiece { get; }
+    void TrySelectPiece(Vector2Int position);
+    void TryMovePiece(Vector2Int position);
 }

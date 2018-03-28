@@ -5,12 +5,10 @@ using UnityEngine.EventSystems;
 public class MouseInput : MonoBehaviour, IInputDevice
 {
     Vector2Int lastPosition = Vector2Int.zero;
-
-    public event Action<Vector2Int> CursorPosition;
     /// <summary>
     /// Left button mouse pressed event
     /// </summary>
-    public event Action LBMPressed;
+    public event Action<Vector2Int> LBMPressed;
 
     /// <summary>
     /// Get input position
@@ -28,11 +26,11 @@ public class MouseInput : MonoBehaviour, IInputDevice
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50.0f, LayerMask.GetMask("ChessPlane")))
         {
-            CursorPosition?.Invoke(GetPosition(hit));
+            lastPosition = GetPosition(hit);
         }
 
         if (Input.GetMouseButtonDown(0) && !IsUIObject())
-            LBMPressed?.Invoke();
+            LBMPressed?.Invoke(Position);
     }
 
     Vector2Int GetPosition(RaycastHit _hit)

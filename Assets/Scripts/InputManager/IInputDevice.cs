@@ -3,8 +3,7 @@ using System;
 
 public interface IInputDevice
 {
-    event Action<Vector2Int> CursorPosition;
-    event Action LBMPressed;
+    event Action<Vector2Int> LBMPressed;
 
     Vector2Int Position { get; }
 }

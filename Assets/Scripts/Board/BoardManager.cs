@@ -5,10 +5,11 @@ using UnityEngine;
 public class BoardManager : IBoardManager
 {
     readonly IPieceFactory pieceFactory;
+    readonly IHighlights highlights;
     public Piece[,] Pieces { private set; get; }
     SideTypes CurrentTurn { set; get; }
     bool[,] AllowedMoves { get; set; }
-    Piece selectedPiece;
+    public Piece SelectedPiece { get; set; }
 
     public BoardManager (IPieceFactory _pieceFactory, IBoardSquareFactory squareFactory) 
     {
@@ -73,7 +74,7 @@ public class BoardManager : IBoardManager
         Pieces[x, y] = pieceFactory.CreatePiece(sideType, pieceType, x, y);
     }
 
-    public void SelectPiece(Vector2Int position)
+    public void TrySelectPiece(Vector2Int position)
     {
         Piece piece = Pieces[position.x, position.y];
         if (piece == null || piece.SideType != CurrentTurn)
@@ -102,7 +103,12 @@ public class BoardManager : IBoardManager
             return;
         }
 
-        selectedPiece = piece;
-        Debug.Log(selectedPiece);
+        SelectedPiece = piece;
+        highlights.HighlightMoves(AllowedMoves);
+    }
+
+    public void TryMovePiece(Vector2Int position)
+    {
+        
     }
 }
