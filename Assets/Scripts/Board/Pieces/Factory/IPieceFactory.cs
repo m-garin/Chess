@@ -2,8 +2,8 @@
 
 namespace Assets.Scripts.Board.Pieces
 {
-    interface IPieceFactory
+    public interface IPieceFactory
     {
-        Piece CreatePiece(SideTypes sideType, PieceTypes pieceType);
+        Piece CreatePiece(SideTypes sideType, PieceTypes pieceType, int x, int y);
     }
 }

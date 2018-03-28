@@ -1,106 +1,84 @@
 ﻿
 public class Bishop : Piece {
 
-	public override bool[,] PossibleMoves (Piece[,] pieces)
-	{/*
-		bool[,] r = new bool[8, 8];
+	public override bool[,] PossibleMoves ()
+	{
+        bool[,] possibleMoves = new bool[8, 8];
 
-		Piece c;
-		int i, j;
+        int XCoordinate, YCoordinate;
 
-		i = CurrentX;
-		j = CurrentY;
-		while (true) {
-			i--;
-			j++;
-			if (i < 0 || j >= 8) 
-			{
-				break;
-			}
+        // Top left
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate--;
+            YCoordinate++;
+            if (XCoordinate < 0 || YCoordinate >= 8)
+            {
+                break;
+            }
 
-			c = pieces[i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (IsWhite != c.IsWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		i = CurrentX;
-		j = CurrentY;
-		while (true) {
-			i--;
-			j--;
-			if (i < 0 || j < 0) 
-			{
-				break;
-			}
+        // Top right
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate++;
+            YCoordinate++;
+            if (XCoordinate >= 8 || YCoordinate >= 8)
+            {
+                break;
+            }
 
-			c = pieces[i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (IsWhite != c.IsWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		i = CurrentX;
-		j = CurrentY;
-		while (true) {
-			i++;
-			j--;
-			if (i >= 8 || j < 0) 
-			{
-				break;
-			}
+        // Down left
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate--;
+            YCoordinate--;
+            if (XCoordinate < 0 || YCoordinate < 0)
+            {
+                break;
+            }
 
-			c = pieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (IsWhite != c.IsWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		i = CurrentX;
-		j = CurrentY;
-		while (true) {
-			i++;
-			j++;
-			if (i >= 8 || j >= 8) 
-			{
-				break;
-			}
+        // Down right
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate++;
+            YCoordinate--;
+            if (XCoordinate >= 8 || YCoordinate < 0)
+            {
+                break;
+            }
 
-			c = pieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (IsWhite != c.IsWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		return r;*/
-	    return null;
+        return possibleMoves;
 	}
 }

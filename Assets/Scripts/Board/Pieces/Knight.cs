@@ -1,35 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class Knight : Piece {
 
 	public override bool[,] PossibleMoves ()
 	{
-		bool[,] r = new bool[8, 8];
+        bool[,] possibleMoves = new bool[8, 8];
 
-		KnightMove(_X-1, _Y+2, ref r);
-		KnightMove(_X+1, _Y+2, ref r);
-		KnightMove(_X+2, _Y+1, ref r);
-		KnightMove(_X+2, _Y-1, ref r);
-		KnightMove(_X-2, _Y-1, ref r);
-		KnightMove(_X-2, _Y+1, ref r);
-		KnightMove(_X+1, _Y-2, ref r);
-		KnightMove(_X-1, _Y-2, ref r);
+        // Up left
+        Move(CurrentX - 1, CurrentY + 2, ref possibleMoves);
 
-		return r;
-	}
+        // Up right
+        Move(CurrentX + 1, CurrentY + 2, ref possibleMoves);
 
-	public void KnightMove (int x, int y, ref bool[,] r)
-	{
-		Piece c;
-		if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-			c = BoardManager.Instance.ChessPieces [x, y];
-			if (c == null) {
-				r [x, y] = true;
-			} else if (isWhite != c.isWhite) {
-				r [x, y] = true;
-			}
-		}
+        // Down left
+        Move(CurrentX - 1, CurrentY - 2, ref possibleMoves);
+
+        // Down right
+        Move(CurrentX + 1, CurrentY - 2, ref possibleMoves);
+
+        // Left Down
+        Move(CurrentX - 2, CurrentY - 1, ref possibleMoves);
+
+        // Right Down
+        Move(CurrentX + 2, CurrentY - 1, ref possibleMoves);
+
+        // Left Up
+        Move(CurrentX - 2, CurrentY + 1, ref possibleMoves);
+
+        // Right Up
+        Move(CurrentX + 2, CurrentY + 1, ref possibleMoves);
+
+        return possibleMoves;
 	}
 }

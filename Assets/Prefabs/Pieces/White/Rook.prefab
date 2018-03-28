@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4964320356223252}
   - component: {fileID: 212414814258374120}
+  - component: {fileID: 114037410291656506}
   m_Layer: 0
   m_Name: Rook
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114037410291656506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1344986687937964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0727df3b410bdb49a5c82fd684706a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideType: 0
 --- !u!212 &212414814258374120
 SpriteRenderer:
   m_ObjectHideFlags: 1

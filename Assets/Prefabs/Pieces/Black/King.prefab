@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340455167918996}
   - component: {fileID: 212457142924375190}
+  - component: {fileID: 114464309034647036}
   m_Layer: 0
   m_Name: King
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114464309034647036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408318661358186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61abf9cbbf1abee4b88edfe52bcfb314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideType: 1
 --- !u!212 &212457142924375190
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Board.Squares;
 using UnityEngine;
 
 public class Pawn : Piece {
 
 	public override bool [,] PossibleMoves()
 	{
-		bool[,] r = new bool[8, 8];
+        bool[,] r = new bool[8, 8];
+        /*
+		
 		Piece c, c2;
 
 		int[] enPass = BoardManager.Instance.EnPassatMove;
 
-		if (isWhite) 
+        if (SideType == SideTypes.White) 
 		{
 			if (_X != 0 && _Y != 7) 
 			{
@@ -93,7 +96,7 @@ public class Pawn : Piece {
 					r [_X, _Y - 2] = true;
 				}
 			}
-		}
+		}*/
 		return r;
 	}
 }

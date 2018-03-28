@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Board.Squares;
+using UnityEngine;
 
 public abstract class Piece : MonoBehaviour
 {
@@ -6,18 +7,42 @@ public abstract class Piece : MonoBehaviour
     public int CurrentY { set; get; }
 
     [SerializeField]
-    bool isWhite;
+    SideTypes sideType;
 
-    public bool IsWhite
+    public SideTypes SideType
     {
-        get { return isWhite; }
+        get { return sideType; }
     }
+
+    public IBoardManager BoardManager { get; set; }
 
     public void SetPosition(int x, int y)
     {
         CurrentX = x;
         CurrentY = y;
+        transform.position = new Vector3(x, y, 0.0f);
     }
 
-    public abstract bool[,] PossibleMoves(Piece[,] pieces);
+    public abstract bool[,] PossibleMoves();
+
+    protected bool Move(int x, int y, ref bool[,] AllPossibleMoves)
+    {
+        if (x >= 0 && x < 8 && y >= 0 && y < 8)
+        {
+            Piece piece = BoardManager.Pieces[x, y];
+            if (piece == null)
+            {
+                AllPossibleMoves[x, y] = true;
+            }
+            else
+            {
+                if (SideType != piece.SideType)
+                {
+                    AllPossibleMoves[x, y] = true;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 }

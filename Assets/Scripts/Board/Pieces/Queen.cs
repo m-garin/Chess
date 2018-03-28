@@ -1,195 +1,148 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class Queen : Piece {
 
 	public override bool[,] PossibleMoves ()
 	{
-		bool[,] r = new bool[8, 8];
-		Piece c;
-		int i, j;
+        bool[,] possibleMoves = new bool[8, 8];
 
-		//right
-		i = _X;
-		while (true) {
-			i++;
-			if (i >= 8) {
-				break;
-			}
+        int XCoordinate, YCoordinate;
 
-			c = BoardManager.Instance.ChessPieces [i, _Y];
-			if (c == null) {
-				r [i, _Y] = true;
-			} 
-			else 
-			{
-				if (c.isWhite != isWhite) {
-					r [i, _Y] = true;
-				}
+        // Top left
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate--;
+            YCoordinate++;
+            if (XCoordinate < 0 || YCoordinate >= 8)
+            {
+                break;
+            }
 
-				break;
-			}
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		//left
-		i = _X;
-		while (true) {
-			i--;
-			if (i < 0) {
-				break;
-			}
+        // Top right
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate++;
+            YCoordinate++;
+            if (XCoordinate >= 8 || YCoordinate >= 8)
+            {
+                break;
+            }
 
-			c = BoardManager.Instance.ChessPieces [i, _Y];
-			if (c == null) {
-				r [i, _Y] = true;
-			} 
-			else 
-			{
-				if (c.isWhite != isWhite) {
-					r [i, _Y] = true;
-				}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-				break;
-			}
-		}
+        // Down left
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate--;
+            YCoordinate--;
+            if (XCoordinate < 0 || YCoordinate < 0)
+            {
+                break;
+            }
 
-		//up
-		i = _Y;
-		while (true) {
-			i++;
-			if (i >= 8) {
-				break;
-			}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-			c = BoardManager.Instance.ChessPieces [_X, i];
-			if (c == null) {
-				r [_X, i] = true;
-			} 
-			else 
-			{
-				if (c.isWhite != isWhite) {
-					r [_X, i] = true;
-				}
+        // Down right
+        XCoordinate = CurrentX;
+        YCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate++;
+            YCoordinate--;
+            if (XCoordinate >= 8 || YCoordinate < 0)
+            {
+                break;
+            }
 
-				break;
-			}
-		}
+            if (Move(XCoordinate, YCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-		//up
-		i = _Y;
-		while (true) {
-			i--;
-			if (i < 0) {
-				break;
-			}
+        // Right
+        XCoordinate = CurrentX;
+        while (true)
+        {
+            XCoordinate++;
+            if (XCoordinate >= 8)
+            {
+                break;
+            }
 
-			c = BoardManager.Instance.ChessPieces [_X, i];
-			if (c == null) {
-				r [_X, i] = true;
-			} 
-			else 
-			{
-				if (c.isWhite != isWhite) {
-					r [_X, i] = true;
-				}
+            if (Move(XCoordinate, CurrentY, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-				break;
-			}
-		}
+        // Left
+        XCoordinate = CurrentX;
+        while (true)
+        {
+            XCoordinate--;
+            if (XCoordinate < 0)
+            {
+                break;
+            }
 
-		i = _X;
-		j = _Y;
-		while (true) {
-			i--;
-			j++;
-			if (i < 0 || j >= 8) 
-			{
-				break;
-			}
+            if (Move(XCoordinate, CurrentY, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-			c = BoardManager.Instance.ChessPieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (isWhite != c.isWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+        // Up
+        XCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate++;
+            if (XCoordinate >= 8)
+            {
+                break;
+            }
 
-		i = _X;
-		j = _Y;
-		while (true) {
-			i--;
-			j--;
-			if (i < 0 || j < 0) 
-			{
-				break;
-			}
+            if (Move(CurrentX, XCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-			c = BoardManager.Instance.ChessPieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (isWhite != c.isWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
+        // Down
+        XCoordinate = CurrentY;
+        while (true)
+        {
+            XCoordinate--;
+            if (XCoordinate < 0)
+            {
+                break;
+            }
 
-		i = _X;
-		j = _Y;
-		while (true) {
-			i++;
-			j--;
-			if (i >= 8 || j < 0) 
-			{
-				break;
-			}
+            if (Move(CurrentX, XCoordinate, ref possibleMoves))
+            {
+                break;
+            }
+        }
 
-			c = BoardManager.Instance.ChessPieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (isWhite != c.isWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
-
-		i = _X;
-		j = _Y;
-		while (true) {
-			i++;
-			j++;
-			if (i >= 8 || j >= 8) 
-			{
-				break;
-			}
-
-			c = BoardManager.Instance.ChessPieces [i, j];
-			if (c == null) {
-				r [i, j] = true;
-			} 
-			else 
-			{
-				if (isWhite != c.isWhite) {
-					r [i, j] = true;	
-				}
-				break;
-			}	
-		}
-
-		return r;
+        return possibleMoves;
 	}
 }
