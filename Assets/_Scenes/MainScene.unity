@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e424216815cef4388442a8c9abf37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squareFactory: {fileID: 1835764769}
+  tileFactory: {fileID: 1835764769}
   pieceFactory: {fileID: 1595411322}
 --- !u!4 &540487009
 Transform:
@@ -219,6 +220,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -300,7 +302,7 @@ GameObject:
   - component: {fileID: 1835764770}
   - component: {fileID: 1835764769}
   m_Layer: 0
-  m_Name: Squares
+  m_Name: Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7500b217bd4e2e48ad06d61325b4752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squares:
+  tiles:
   - {fileID: 1881468358745440, guid: a1302cc3f98186a4ab14428779008795, type: 2}
   - {fileID: 1890064865168948, guid: f776dd88ec1c9954ca5415e439c2b912, type: 2}
 --- !u!4 &1835764770

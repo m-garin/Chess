@@ -10,19 +10,50 @@ namespace Assets.Scripts.Board.Pieces
         [SerializeField]
         GameObject[] blackPieces;
 
-        public Piece CreatePiece(SideTypes sideType, PieceTypes pieceType, int x, int y)
+        IGameManager gameManager;
+
+        public void Instantiate(IGameManager _gameManager)
         {
-            Piece piece;
-            if (sideType == SideTypes.White) 
+            gameManager = _gameManager;
+        }
+
+        public IPieceGameObject CreatePiece(SideType sideType, PieceType pieceType, Vector2Int position)
+        {
+            IPieceGameObject piece;
+            if (sideType == SideType.White) 
             {
-                piece = Instantiate(whitePieces[(int)pieceType], transform).GetComponent<Piece>();
+                piece = Instantiate(whitePieces[(int)pieceType], transform).GetComponent<PieceGameObject>();
             }
             else
             {
-                piece = Instantiate(blackPieces[(int)pieceType], transform).GetComponent<Piece>();
+                piece = Instantiate(blackPieces[(int)pieceType], transform).GetComponent<PieceGameObject>();
             }
-             
-            piece.SetPosition(x, y);
+
+            PieceLogic logic;
+            switch (pieceType)
+            {
+                case PieceType.King:
+                    logic = new King(sideType);
+                    break;
+                case PieceType.Queen:
+                    logic = new Queen(sideType);
+                    break;
+                case PieceType.Bishop:
+                    logic = new Bishop(sideType);
+                    break;
+                case PieceType.Knight:
+                    logic = new Knight(sideType);
+                    break;
+                case PieceType.Rook:
+                    logic = new Rook(sideType);
+                    break;
+                default:
+                    logic = new Pawn(sideType);
+                    break;
+            }
+            logic.Position = position;
+            piece.Instantiate(gameManager, logic);
+            piece.SyncLogicPosition();
             return piece;
         }
     }

@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4242848762434924}
   - component: {fileID: 212677104090556676}
-  - component: {fileID: 114086733503809420}
+  - component: {fileID: 114757350394627142}
+  - component: {fileID: 58036653855228236}
   m_Layer: 0
   m_Name: Bishop
   m_TagString: Untagged
@@ -41,7 +42,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114086733503809420
+--- !u!58 &58036653855228236
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271135844541368}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.43333334
+--- !u!114 &114757350394627142
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,10 +65,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1271135844541368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3112d85470f124c46a9e2eacf6d2cd25, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f57d7b4012e5ae4ea5e02c9d1e8e69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideType: 1
 --- !u!212 &212677104090556676
 SpriteRenderer:
   m_ObjectHideFlags: 1

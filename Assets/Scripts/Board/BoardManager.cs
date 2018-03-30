@@ -6,109 +6,100 @@ public class BoardManager : IBoardManager
 {
     readonly IPieceFactory pieceFactory;
     readonly IHighlights highlights;
-    public Piece[,] Pieces { private set; get; }
-    SideTypes CurrentTurn { set; get; }
-    bool[,] AllowedMoves { get; set; }
-    public Piece SelectedPiece { get; set; }
 
-    public BoardManager (IPieceFactory _pieceFactory, IBoardSquareFactory squareFactory) 
+    int width = 8;
+    int height = 8;
+
+    IPieceGameObject[,] Pieces { set; get; }
+    ITileGameObject[,] Tiles { set; get; }
+
+    public BoardManager (IGameManager gameManager, IPieceFactory _pieceFactory, ITileFactory tileFactory) 
     {
-        DrawBoard(squareFactory);
+        DrawBoard(tileFactory);
         pieceFactory = _pieceFactory;
+        pieceFactory.Instantiate(gameManager);
         PopulateBoard();
-        CurrentTurn = SideTypes.White;
     }
 
-    void DrawBoard(IBoardSquareFactory squareFactory)
+    void DrawBoard(ITileFactory tileFactory)
     {
-        for (int x = 0; x < 8; x++)
+        Tiles = new ITileGameObject[width, height];
+        for (int x = 0; x < width; x++)
         {
-            for (int y = 0; y < 8; y++)
+            for (int y = 0; y < height; y++)
             {
-                SideTypes squareType = SideTypes.White;
+                SideType tileType = SideType.White;
                 if ((y % 2 == 0 && x % 2 == 0) || (y % 2 != 0 && x % 2 != 0))
                 {
-                    squareType = SideTypes.Black;
+                    tileType = SideType.Black;
                 }
 
-                squareFactory.CreateSquare(squareType, x, y);
+                Tiles[x, y] = tileFactory.CreateTile(tileType, x, y);
             }
         }
     }
 
     void PopulateBoard()
     {
-        Pieces = new Piece[8, 8];
+        Pieces = new PieceGameObject[width, height];
 
         //WHITE TEAM SPAWN
-        SpawnPiece(SideTypes.White, PieceTypes.King, 3, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Queen, 4, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Rook, 0, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Rook, 7, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Bishop, 2, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Bishop, 5, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Knight, 1, 0);
-        SpawnPiece(SideTypes.White, PieceTypes.Knight, 6, 0);
+        SpawnPiece(SideType.White, PieceType.King, 3, 0);
+        SpawnPiece(SideType.White, PieceType.Queen, 4, 0);
+        SpawnPiece(SideType.White, PieceType.Rook, 0, 0);
+        SpawnPiece(SideType.White, PieceType.Rook, 7, 0);
+        SpawnPiece(SideType.White, PieceType.Bishop, 2, 0);
+        SpawnPiece(SideType.White, PieceType.Bishop, 5, 0);
+        SpawnPiece(SideType.White, PieceType.Knight, 1, 0);
+        SpawnPiece(SideType.White, PieceType.Knight, 6, 0);
         for (int x = 0; x < 8; x++)
         {
-            SpawnPiece(SideTypes.White, PieceTypes.Pawn, x, 1);
+            SpawnPiece(SideType.White, PieceType.Pawn, x, 1);
         }
 
         //BLACK TEAM SPAWN
-        SpawnPiece(SideTypes.Black, PieceTypes.King, 4, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Queen, 3, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Rook, 0, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Rook, 7, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Bishop, 2, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Bishop, 5, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Knight, 1, 7);
-        SpawnPiece(SideTypes.Black, PieceTypes.Knight, 6, 7);
+        SpawnPiece(SideType.Black, PieceType.King, 4, 7);
+        SpawnPiece(SideType.Black, PieceType.Queen, 3, 7);
+        SpawnPiece(SideType.Black, PieceType.Rook, 0, 7);
+        SpawnPiece(SideType.Black, PieceType.Rook, 7, 7);
+        SpawnPiece(SideType.Black, PieceType.Bishop, 2, 7);
+        SpawnPiece(SideType.Black, PieceType.Bishop, 5, 7);
+        SpawnPiece(SideType.Black, PieceType.Knight, 1, 7);
+        SpawnPiece(SideType.Black, PieceType.Knight, 6, 7);
         for (int x = 0; x < 8; x++)
         {
-            SpawnPiece(SideTypes.Black, PieceTypes.Pawn, x, 6);
+            SpawnPiece(SideType.Black, PieceType.Pawn, x, 6);
         }
     }
 
-    void SpawnPiece (SideTypes sideType, PieceTypes pieceType, int x, int y) 
+    void SpawnPiece (SideType SideType, PieceType pieceType, int x, int y) 
     {
-        Pieces[x, y] = pieceFactory.CreatePiece(sideType, pieceType, x, y);
+        Pieces[x, y] = pieceFactory.CreatePiece(SideType, pieceType, new Vector2Int(x, y));
     }
 
-    public void TrySelectPiece(Vector2Int position)
+    public ITileGameObject GetTile(Vector2Int position)
     {
-        Piece piece = Pieces[position.x, position.y];
-        if (piece == null || piece.SideType != CurrentTurn)
+        if (position.x >= 0 && position.x < width && position.y >= 0 && position.y < height)
         {
-            return;
+            return Tiles[position.x, position.y];
         }
-
-        bool hasOneMove = false;
-
-        AllowedMoves = piece.PossibleMoves();
-        for (int x = 0; x < 8; x++)
+        else
         {
-            for (int y = 0; y < 8; y++)
-            {
-                if (AllowedMoves[x, y])
-                {
-                    hasOneMove = true;
-                    x = 8;
-                    break;
-                }
-            }        
+            Debug.Log("Out of bounds");
+            return null;
         }
-
-        if (!hasOneMove)
-        {
-            return;
-        }
-
-        SelectedPiece = piece;
-        highlights.HighlightMoves(AllowedMoves);
     }
 
-    public void TryMovePiece(Vector2Int position)
+    public IPieceGameObject GetPiece(Vector2Int position)
     {
-        
+        if (position.x >= 0 && position.x < width && position.y >= 0 && position.y < height)
+        {
+            return Pieces[position.x, position.y];
+        }
+        else
+        {
+            Debug.Log("Out of bounds");
+            return null;
+        }
     }
 }

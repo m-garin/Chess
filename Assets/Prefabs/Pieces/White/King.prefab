@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4421380587684074}
   - component: {fileID: 212492748625487660}
-  - component: {fileID: 114388337445611294}
+  - component: {fileID: 114842340102262824}
+  - component: {fileID: 58256496800908428}
   m_Layer: 0
   m_Name: King
   m_TagString: Untagged
@@ -41,7 +42,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114388337445611294
+--- !u!58 &58256496800908428
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076351912673218}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.41666666
+--- !u!114 &114842340102262824
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,10 +65,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1076351912673218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61abf9cbbf1abee4b88edfe52bcfb314, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f57d7b4012e5ae4ea5e02c9d1e8e69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideType: 0
 --- !u!212 &212492748625487660
 SpriteRenderer:
   m_ObjectHideFlags: 1
